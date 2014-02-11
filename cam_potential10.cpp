@@ -105,9 +105,5 @@ int main()
     }
     
     system("gnuplot -p -e \"splot 'FDM_Data.dat' matrix with lines\"");
-//     system("gnuplot> splot 'FDM_Data.dat' matrix with lines");
-// //     system("gnuplot>");
-//     system("splot 'FDM_Data.dat' matrix with lines");
-//     system("exit");
 return 0;
 }
