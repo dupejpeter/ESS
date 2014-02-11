@@ -86,10 +86,7 @@ int main()
         for(j=0; j<M; j++)
         {
             if (FDM_data != NULL)
-            { 
-             
                FDM_data << V[i][j] << "\t";
-           	}
             cout << V[i][j] << "\t";
         }
         FDM_data << endl;
