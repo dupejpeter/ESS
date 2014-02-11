@@ -6,6 +6,8 @@
 #include <vector>
 #include <unistd.h>
 #include <cmath>
+#include <iomanip>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -15,16 +17,18 @@ int main()
     cout << "Enter Matrix Size:" << endl;
     cin >> M;
     
-    double V[M][M],l,r,t,b,h,radius,x_centre, y_centre;
+    double V[M][M],left_plate,right_plate, cylinder_potential, radius, x_centre, y_centre;
     
     ofstream FDM_data("FDM_Data.dat");
     
     cout << "enter boundary conditions" << endl;
-    cout << "LHS value" << endl;
-    cin >> l;
-    cout << "RHS value" << endl;
-    cin >> r;
-    cout << "Enter radius of Cylinder" << endl;
+    cout << "Please enter the Left hand plate's potential" << endl;
+    cin >> left_plate;
+    cout << "Please enter the RIGHT hand plate's potential" << endl;
+    cin >> right_plate;
+    cout << "Please enter the CYLINDER's potential - enter ZERO for it to be grounded" << endl;
+    cin >> cylinder_potential;
+    cout << "Enter radius of the Cylinder" << endl;
     cin >> radius;
     cout << "Enter x component of the cylinder centre" << endl;
     cin >> x_centre;
@@ -33,8 +37,8 @@ int main()
     
     for(i=0; i<M; i++)
     {
-        V[i][0] = l;
-        V[i][M-1] = r;
+        V[i][0] = left_plate;
+        V[i][M-1] = right_plate;
 
     }
     
@@ -62,7 +66,7 @@ int main()
             for(j=1; j<M-1; j++)
             {
                 if((pow((i-x_centre),2)+pow((j-y_centre),2))<=(pow(radius,2)))
-                V[i][j] = 0;
+                V[i][j] = cylinder_potential;
             	
             	else if(i==0)
             	{
@@ -80,7 +84,9 @@ int main()
         }
     }
     
-    cout << "OUTPUT MATRIX" << endl;   
+    
+    cout << "OUTPUT MATRIX" << endl;
+//     cout << setprecision(5);   
     for(i=0; i<M; i++)
     {
         for(j=0; j<M; j++)
