@@ -37,17 +37,6 @@ int main()
         V[i][M-1] = r;
 
     }
-                        /********TEST PRINT*********/
-       //                  cout << "TEST PRINT" << endl;
-//                         for(i=0; i<M; i++)
-//                         {
-//                             for(j=0; j<M; j++)
-//                             {
-//                                 cout << V[i][j] << "\t";
-//                             }
-//                             cout << endl;
-//                         }
-                        /*********END TEST***********/
     
     for(i=0; i<M; i++)
     {
@@ -56,18 +45,7 @@ int main()
             V[i][j] = 0;
         }
     }
-// *******TEST PRINT*********/
-//                         cout << "TEST PRINT" << endl;
-//                         for(i=0; i<M; i++)
-//                         {
-//                             for(j=0; j<M; j++)
-//                             {
-//                                 cout << V[i][j] << "\t";
-//                             }
-//                             cout << endl;
-//                         }
-// ********END TEST***********/
-    
+
     for(i=1; i<M-1; i++)
     {
         for(j=0; j<M; j++)
