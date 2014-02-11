@@ -86,13 +86,18 @@ int main()
     
     
     cout << "OUTPUT MATRIX" << endl;
-//     cout << setprecision(5);   
+    cout << fixed;
+    cout << setprecision(4);   
     for(i=0; i<M; i++)
     {
         for(j=0; j<M; j++)
         {
             if (FDM_data != NULL)
-               FDM_data << V[i][j] << "\t";
+            {
+            	FDM_data << fixed;
+            	FDM_data << setprecision(4);
+               	FDM_data << V[i][j] << "\t";
+            }
             cout << V[i][j] << "\t";
         }
         FDM_data << endl;
