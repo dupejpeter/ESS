@@ -15,3 +15,8 @@
 # Eclipse project files
 **.cproject
 **.project
+
+# dat and exe files for Cameron
+
+*.dat
+potential
