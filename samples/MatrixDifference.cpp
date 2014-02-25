@@ -86,7 +86,7 @@ int main()
     m3.output();
     m3.maximum(m3);
     
-    _getch();
+    getch();
     
     return 0;
 
