@@ -7,7 +7,7 @@ Project of P2 Group 1.
 Repository structure
 ---
 
-- `app` directory encapsulates the whole simulating programme
+- `src` directory encapsulates the source code of the programme
 - `design` directory contains all files of an app design and modules specification
 - `samples` directory of samples and experimental bits of code 
 Feel free to create more directories here if you need them, but ask me first or at least let me know what is its purpose. Otherwise, please hold the structure given above.
