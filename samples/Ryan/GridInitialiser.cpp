@@ -7,19 +7,36 @@
 #include <unistd.h>
 #include <cmath>
 #include <iomanip>
+#include "GridInitialiser.h"
 
 using namespace std;
 
-class Grid
+    Grid::Grid()
+    {
+        nrows = 31;
+        ncolumns = 31;
 
-{
-public:
-    int nrows;
-    int ncolumns;
-    float **potential;
-    bool **fixed;
+       potential = new float*[nrows];
+       for (int i = 0; i < nrows; ++i)
+       potential[i] = new float[ncolumns];
 
-        Grid(int x=31, int y=31)
+       fixed = new bool*[nrows];
+       for (int i = 0; i < nrows; ++i)
+       fixed[i] = new bool[ncolumns];
+
+       for(int a=0; a<nrows; a++)
+        {
+         for(int b=0; b<ncolumns; b++)
+          {
+            potential[a][b] = 0;
+            fixed[a][b] = 0;
+          }
+        }
+    }
+
+
+
+    Grid::Grid(int x, int y)
     {
         nrows = x;
         ncolumns = y;
@@ -45,7 +62,7 @@ public:
 
 // setting Brody output matrices to grid for custom scenarios.
 
-        void ObjectInclusion(float **A, bool **B)
+        void Grid::ObjectInclusion(float **A, bool **B)
     {
         for(int i=0; i<nrows; i++)
         {
@@ -58,22 +75,22 @@ public:
         }
     }
 
-    float GetPotential(Grid& A, int i, int j)
+    float Grid::GetPotential(Grid& A, int i, int j)
     {
         return A.potential[i][j];
     }
 
-    int GetRowSize()
+    int Grid::GetRowSize()
     {
         return nrows;
     }
 
-    int GetColSize()
+    int Grid::GetColSize()
     {
         return ncolumns;
     }
 
-    void SetPlatePotentials(float np, char plate)
+    void Grid::SetPlatePotentials(float np, char plate)
     {
         if (plate == 'l')
         {
@@ -115,22 +132,22 @@ public:
         }
     }
 
-    void Circle(Grid& A, float radius, int icentre, int jcentre, float pot)
+    void Grid::Circle(float radius, int icentre, int jcentre, float pot)
     {
-            for(int i=0; i<A.nrows; i++)
+            for(int i=0; i<nrows; i++)
     {
-        for(int j=0; j<A.ncolumns; j++)
+        for(int j=0; j<ncolumns; j++)
         {
-            if(A.fixed[i][j]==0 &&((pow((i-icentre),2)+pow((j-jcentre),2))<=(pow (radius,2))))
+            if(fixed[i][j]==0 &&((pow((i-icentre),2)+pow((j-jcentre),2))<=(pow (radius,2))))
             {
-                A.potential[i][j]= pot;
-                A.fixed[i][j]=1;
+                potential[i][j]= pot;
+                fixed[i][j]=1;
             }
         }
     }
     }
 
-    void Rectangle(Grid& A, int i1, int i2, int j1, int j2, float pot)
+    void Grid::Rectangle(Grid& A, int i1, int i2, int j1, int j2, float pot)
     {
         for(int i=i1; i<i2+1; i++)
         {
@@ -148,6 +165,4 @@ public:
 
 
 
-
-};
 
