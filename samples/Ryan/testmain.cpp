@@ -7,8 +7,11 @@
 #include <unistd.h>
 #include <cmath>
 #include <iomanip>
-#include "GridInitialiser.h"
+#include <istream>
+#include <ostream>
 #include "Iteration1.h"
+#include "GridInitialiser.h"
+
 
 using namespace std;
 
@@ -39,10 +42,13 @@ void OutputMatrix(Grid& A)
 
 int main()
 {
-    Grid cPotential = Grid();
-    cPotential.Circle(cPotential, 5, 15, 15, 10);
+    Grid cPotential(11,11);
+    cPotential.SetPlatePotentials(10,'l');
+    cPotential.SetPlatePotentials(-10,'r');
+    cPotential.Circle(3, 5, 5, 4);
+    Iteration(cPotential, 4, 100000);
     OutputMatrix(cPotential);
-    Iteration(cPotential, 3, 100000);
+
 
 return 0;
 }
