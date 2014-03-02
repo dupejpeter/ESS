@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <cmath>
 #include <iomanip>
-#include "C:\Users\Ryan\Documents\C++ Projects\ElectrostaticsA\Iteration1.h"
+#include "Iteration1.h"
 
 using namespace std;
 // tolerance is the number of decimal places desired.
