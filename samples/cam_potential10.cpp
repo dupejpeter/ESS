@@ -104,6 +104,7 @@ int main()
         cout << endl;
     }
     
-    system("gnuplot -p -e \"splot 'FDM_Data.dat' matrix with lines\"");
+    //system("gnuplot -p -e \"splot 'FDM_Data.dat' matrix with lines\"");
+    system("gnuplot -p -e \"load 'FDM_output.plt'\"");
 return 0;
 }
