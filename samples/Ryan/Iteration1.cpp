@@ -96,7 +96,6 @@ using namespace std;
                     {
                         derror = abs (dnew-dold);
                     }
-                    cout << A.potential[i][j] << endl;
             	}
 
                 else if(A.fixed[i][j]==0 && (i == A.nrows-1) && (j == 0))
