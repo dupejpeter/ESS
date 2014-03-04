@@ -26,11 +26,11 @@ void OutputMatrix(Grid& A)
         {
             if (FDM_data != NULL)
             {
-            //FDM_data << fixed;
-            //FDM_data << setprecision(4);
+            FDM_data << fixed;
+            FDM_data << setprecision(4);
             FDM_data << A.potential[i][j] << "\t";
-            //cout << fixed;
-            //cout << setprecision(3);
+            cout << fixed;
+            cout << setprecision(3);
             cout << A.potential[i][j] << "\t";
             }
         }
