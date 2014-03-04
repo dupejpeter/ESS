@@ -6,10 +6,10 @@
  */
 
 #include "Grid.h"
-#include <cassert>
+#include <stdexcept>	//	std::invalid_argument, std::out_of_range
 
 Grid::Grid(int nSizeX, int nSizeY) {
-	assert(nSizeX > 0 && nSizeY > 0); // TODO rework to exceptions
+	checkSize(nSizeX, nSizeY);
 	m_nSizeX = nSizeX;	// columns
 	m_nSizeY = nSizeY;	// rows
 
@@ -27,12 +27,26 @@ Grid::Grid(int nSizeX, int nSizeY) {
 }
 
 Grid::Grid(int nSizeX, int nSizeY, float ** afPotential, bool ** abFixed) {
-	assert(nSizeX > 0 && nSizeY > 0); // TODO rework to exceptions
+	checkSize(nSizeX, nSizeY);
 	m_nSizeX = nSizeX;
 	m_nSizeY = nSizeY;
 	m_afPotential = afPotential;
 	m_abFixed = abFixed;
 	// TODO check memory consistency
+}
+
+void Grid::checkSize(int nSizeX, int nSizeY) {
+	if (nSizeX < 1)
+		throw std::invalid_argument("Argument nSizeX is less than 1");
+	if (nSizeY < 1)
+		throw std::invalid_argument("Argument nSizeY is less than 1");
+}
+
+void Grid::checkBounds(int nX, int nY){
+	if (nX < 0 || nX >= m_nSizeX)
+		throw std::out_of_range("nX is out of bounds");
+	if (nY < 0 || nX >= m_nSizeY)
+		throw std::out_of_range("nY is out of bounds");
 }
 
 int Grid::getSizeX() {
@@ -44,21 +58,21 @@ int Grid::getSizeY() {
 }
 
 float Grid::getPot(int nX, int nY) {
-	// TODO check for index X,Y out of bounds
+	checkBounds(nX, nY);
 	return m_afPotential[nY][nX];
 }
 
 void Grid::setPot(int nX, int nY, float fPot) {
-	// TODO check for index X,Y out of bounds
+	checkBounds(nX, nY);
 	m_afPotential[nY][nX] = fPot;
 }
 
 bool Grid::isFixed(int nX, int nY) {
-	// TODO check for index X,Y out of bounds
+	checkBounds(nX, nY);
 	return m_abFixed[nY][nX];
 }
 
 void Grid::setFixed(int nX, int nY, bool bFixed) {
-	// TODO check for index X,Y out of bounds
+	checkBounds(nX, nY);
 	m_abFixed[nY][nX] = bFixed;
 }

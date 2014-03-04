@@ -14,6 +14,9 @@ private:
 	float ** m_afPotential;
 	bool ** m_abFixed;
 
+	void checkSize(int nSizeX, int nSizeY);
+	void checkBounds(int nX, int nY);
+
 public:
 	Grid(int nSizeX, int nSizeY);
 	Grid(int nSizeX, int nSizeY, float ** afPotential, bool ** abFixed);
