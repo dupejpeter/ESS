@@ -11,3 +11,17 @@ potential
 # Eclipse build folders
 /Debug
 /Development
+
+samples/Cam_graphs/2DplotFINAL.plt
+
+samples/Cam_graphs/FDM_output.plt
+
+samples/Cam_graphs/test.eps
+
+*.plt
+
+samples/cam_10potential
+
+samples/cylinder
+
+samples/initialise
