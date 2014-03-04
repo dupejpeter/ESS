@@ -11,19 +11,18 @@
 class Grid {
 private:
 	int m_nSizeX, m_nSizeY;
-	float ** m_fPotential;
-	bool ** m_bFixed;
-
-	Grid();
+	float ** m_afPotential;
+	bool ** m_abFixed;
 
 public:
 	Grid(int nSizeX, int nSizeY);
-	Grid(int nSizeX, int nSizeY, float ** fPotential, bool ** bFixed);
+	Grid(int nSizeX, int nSizeY, float ** afPotential, bool ** abFixed);
 	int getSizeX();
 	int getSizeY();
 	float getPot(int nX, int nY);
 	void setPot(int nX, int nY, float fPot);
 	bool isFixed(int nX, int nY);
+	void setFixed(int nX, int nY, bool bFixed);
 };
 
 #endif /* Grid_H */
