@@ -9,10 +9,12 @@ Grid
 
 arrays are ordered y-x (rows, cols) and oriented
 
+```
 +--> x
 |
 \/
 y
+```
 
 ### Constructors:
 
