@@ -20,6 +20,7 @@ private:
 public:
 	Grid(int nSizeX, int nSizeY);
 	Grid(int nSizeX, int nSizeY, float ** afPotential, bool ** abFixed);
+	~Grid();
 	int getSizeX();
 	int getSizeY();
 	float getPot(int nX, int nY);

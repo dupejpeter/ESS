@@ -17,19 +17,19 @@ int main() {
 		cout << "g.getSizeX() = " << g.getSizeX() << endl;
 		cout << "g.getSizeY() = " << g.getSizeY() << endl;
 		cout << "g.getPot(0, 0) = " << g.getPot(0, 0) << endl;
-		g.setPot(0, 0, 6.00001);
-		cout << "g.setPot(0, 0, 6)" << endl;
+		g.setPot(0, 0, 9.999999);
+		cout << "g.setPot(0, 0, 9.999999)" << endl;
 		cout << "g.getPot(0, 0) = " << g.getPot(0, 0) << endl;
 		cout << "g.isFixed(0, 0) = " << g.isFixed(0, 0) << endl;
-		g.setFixed(0, 3, 1);
+		g.setFixed(0, 0, 1);
 		cout << "g.setFixed(0, 0, 1)" << endl;
 		cout << "g.isFixed(0, 0) = " << g.isFixed(0, 0) << endl;
-
-
 	} catch (invalid_argument &e) {
 		cerr << "Invalid argument: " << e.what() << endl;
 	} catch (out_of_range &e) {
 		cerr << "Out of range: " << e.what() << endl;
+	} catch (exception &e) {
+		cerr << "Everything else we forgot: " << e.what() << endl;
 	}
 
 	return 0;

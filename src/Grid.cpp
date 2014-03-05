@@ -32,7 +32,19 @@ Grid::Grid(int nSizeX, int nSizeY, float ** afPotential, bool ** abFixed) {
 	m_nSizeY = nSizeY;
 	m_afPotential = afPotential;
 	m_abFixed = abFixed;
-	// TODO check memory consistency
+}
+
+Grid::~Grid() {
+	for (int y = 0; y < m_nSizeY; y++) {
+		delete[] m_afPotential[y];
+		delete[] m_abFixed[y];
+	}
+
+	delete[] m_afPotential;
+	delete[] m_abFixed;
+
+	m_nSizeX = 0;
+	m_nSizeY = 0;
 }
 
 void Grid::checkSize(int nSizeX, int nSizeY) {
