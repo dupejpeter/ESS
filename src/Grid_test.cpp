@@ -13,16 +13,17 @@ using namespace std;
 
 int main() {
 	try {
-		Grid g = Grid(0, 1);
-		cout << "we should never get there" << endl;
+		Grid g = Grid(1, 1);
 		cout << g.getSizeX() << endl;
+		cout << g.getSizeY() << endl;
+		cout << g.getPot(0, 0) << endl;
+		//g.setPot(0, 0, 9.9);
+		//cout << "g.getPot(0, 0) = " << g.getPot(0, 0);
 	} catch (invalid_argument &e) {
 		cerr << "Invalid argument: " << e.what() << endl;
+	} catch (exception &e) {
+		cerr << "Some other error: " << e.what() << endl;
 	}
-
-	//cout << g.getSizeX();
-	//g.setPot(0, 0, 9.9);
-	//cout << "g.getPot(0, 0) = " << g.getPot(0, 0);
 
 	return 0;
 }

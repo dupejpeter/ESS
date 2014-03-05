@@ -45,7 +45,7 @@ void Grid::checkSize(int nSizeX, int nSizeY) {
 void Grid::checkBounds(int nX, int nY){
 	if (nX < 0 || nX >= m_nSizeX)
 		throw std::out_of_range("nX is out of bounds");
-	if (nY < 0 || nX >= m_nSizeY)
+	if (nY < 0 || nY >= m_nSizeY)
 		throw std::out_of_range("nY is out of bounds");
 }
 
