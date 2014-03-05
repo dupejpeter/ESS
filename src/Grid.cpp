@@ -37,16 +37,16 @@ Grid::Grid(int nSizeX, int nSizeY, float ** afPotential, bool ** abFixed) {
 
 void Grid::checkSize(int nSizeX, int nSizeY) {
 	if (nSizeX < 1)
-		throw std::invalid_argument("Argument nSizeX is less than 1");
+		throw std::invalid_argument("Argument nSizeX is less than 1!");
 	if (nSizeY < 1)
-		throw std::invalid_argument("Argument nSizeY is less than 1");
+		throw std::invalid_argument("Argument nSizeY is less than 1!");
 }
 
 void Grid::checkBounds(int nX, int nY){
 	if (nX < 0 || nX >= m_nSizeX)
-		throw std::out_of_range("nX is out of bounds");
+		throw std::out_of_range("Index nX is out of range!");
 	if (nY < 0 || nY >= m_nSizeY)
-		throw std::out_of_range("nY is out of bounds");
+		throw std::out_of_range("Index nY is out of range!");
 }
 
 int Grid::getSizeX() {
