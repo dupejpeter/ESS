@@ -10,6 +10,8 @@ public:
     int nrows;
     int ncolumns;
     float **potential;
+    float **Ex;
+    float **Ey;
     bool **fixed;
     Grid();
     Grid(int x, int y);
@@ -19,7 +21,11 @@ public:
     int GetColSize();
     void SetPlatePotentials(float np, char plate);
     void Circle(float radius, int icentre, int jcentre, float pot);
-    void Rectangle(Grid& A, int i1, int i2, int j1, int j2, float pot);
+    void Rectangle(int i1, int i2, int j1, int j2, float pot);
+    void SetElectricField();
+    void OutputElectric();
+
+
 
 };
 
