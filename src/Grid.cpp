@@ -6,7 +6,9 @@
  */
 
 #include "Grid.h"
-#include <stdexcept>	//	std::invalid_argument, std::out_of_range
+#include <stdexcept>	//	invalid_argument, out_of_range
+
+using namespace std;
 
 Grid::Grid(int nSizeX, int nSizeY) {
 	checkSize(nSizeX, nSizeY);
@@ -49,16 +51,16 @@ Grid::~Grid() {
 
 void Grid::checkSize(int nSizeX, int nSizeY) {
 	if (nSizeX < 1)
-		throw std::invalid_argument("Argument nSizeX is less than 1!");
+		throw invalid_argument("Argument nSizeX is less than 1!");
 	if (nSizeY < 1)
-		throw std::invalid_argument("Argument nSizeY is less than 1!");
+		throw invalid_argument("Argument nSizeY is less than 1!");
 }
 
 void Grid::checkBounds(int nX, int nY){
 	if (nX < 0 || nX >= m_nSizeX)
-		throw std::out_of_range("Index nX is out of range!");
+		throw out_of_range("Index nX is out of range!");
 	if (nY < 0 || nY >= m_nSizeY)
-		throw std::out_of_range("Index nY is out of range!");
+		throw out_of_range("Index nY is out of range!");
 }
 
 int Grid::getSizeX() {

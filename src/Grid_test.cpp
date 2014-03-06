@@ -6,8 +6,8 @@
  */
 
 #include "Grid.h"
-#include <stdexcept>
-#include <iostream>
+#include <stdexcept>	//	invalid_argument, out_of_range, exception
+#include <iostream>		//	cout, cerr, endl
 
 using namespace std;
 
