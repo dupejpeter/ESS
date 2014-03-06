@@ -8,10 +8,6 @@
 *.exe
 potential
 
-# Eclipse build folders
-/Debug
-/Development
-
 samples/Cam_graphs/2DplotFINAL.plt
 
 samples/Cam_graphs/FDM_output.plt
