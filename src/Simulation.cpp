@@ -40,8 +40,8 @@ float Simulation::GetThreshold() {
 
 void Simulation::Run() {
 	//cout << m_grid->GetSizeX() << endl;
-	//cout << "Simulation running" << endl;
-	//m_grid->SetFixed(1,1,1);
+	cout << "Simulation running" << endl;
+	m_grid->SetPot(1, 1, 1);
 }
 
 Grid * Simulation::GetGrid() {

@@ -16,7 +16,7 @@ using namespace std;
 class File {
 public:
 	static Grid LoadDataFile(const char * strFileName);
-	static void SaveDataFile(Grid& g, const char * strFileName);
+	static void SaveDataFile(Grid & g, const char * strFileName);
 };
 
 #endif /* FILE_H */

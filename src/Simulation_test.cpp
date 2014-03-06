@@ -14,7 +14,6 @@ using namespace std;
 int main() {
 	Grid g = File::LoadDataFile("data_in.dat");
 
-	cout << g.GetSizeX() << endl;
 	Simulation s = Simulation(&g);
 	s.Run();
 

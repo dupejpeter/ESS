@@ -11,7 +11,7 @@
 using namespace std;
 
 Grid::Grid(int nSizeX, int nSizeY) {
-	checkSize(nSizeX, nSizeY);
+	CheckSize(nSizeX, nSizeY);
 	m_nSizeX = nSizeX;	// columns
 	m_nSizeY = nSizeY;	// rows
 
@@ -29,7 +29,7 @@ Grid::Grid(int nSizeX, int nSizeY) {
 }
 
 Grid::Grid(int nSizeX, int nSizeY, float ** afPotential, bool ** abFixed) {
-	checkSize(nSizeX, nSizeY);
+	CheckSize(nSizeX, nSizeY);
 	m_nSizeX = nSizeX;
 	m_nSizeY = nSizeY;
 	m_afPotential = afPotential;
@@ -49,44 +49,44 @@ Grid::~Grid() {
 	m_nSizeY = 0;
 }
 
-void Grid::checkSize(int nSizeX, int nSizeY) {
+void Grid::CheckSize(int nSizeX, int nSizeY) {
 	if (nSizeX < 1)
 		throw invalid_argument("Argument nSizeX is less than 1!");
 	if (nSizeY < 1)
 		throw invalid_argument("Argument nSizeY is less than 1!");
 }
 
-void Grid::checkBounds(int nX, int nY){
+void Grid::CheckBounds(int nX, int nY){
 	if (nX < 0 || nX >= m_nSizeX)
 		throw out_of_range("Index nX is out of range!");
 	if (nY < 0 || nY >= m_nSizeY)
 		throw out_of_range("Index nY is out of range!");
 }
 
-int Grid::getSizeX() {
+int Grid::GetSizeX() {
 	return m_nSizeX;
 }
 
-int Grid::getSizeY() {
+int Grid::GetSizeY() {
 	return m_nSizeY;
 }
 
-float Grid::getPot(int nX, int nY) {
-	checkBounds(nX, nY);
+float Grid::GetPot(int nX, int nY) {
+	CheckBounds(nX, nY);
 	return m_afPotential[nY][nX];
 }
 
-void Grid::setPot(int nX, int nY, float fPot) {
-	checkBounds(nX, nY);
+void Grid::SetPot(int nX, int nY, float fPot) {
+	CheckBounds(nX, nY);
 	m_afPotential[nY][nX] = fPot;
 }
 
-bool Grid::isFixed(int nX, int nY) {
-	checkBounds(nX, nY);
+bool Grid::IsFixed(int nX, int nY) {
+	CheckBounds(nX, nY);
 	return m_abFixed[nY][nX];
 }
 
-void Grid::setFixed(int nX, int nY, bool bFixed) {
-	checkBounds(nX, nY);
+void Grid::SetFixed(int nX, int nY, bool bFixed) {
+	CheckBounds(nX, nY);
 	m_abFixed[nY][nX] = bFixed;
 }

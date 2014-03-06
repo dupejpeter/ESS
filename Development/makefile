@@ -2,7 +2,9 @@ TARGET = ESS.exe
 
 CPP_SRCS = \
 ../src/Control.cpp \
-../src/Grid.cpp
+../src/Grid.cpp \
+../src/Simulation.cpp \
+../src/File.cpp
 
 all: $(TARGET) test
 
@@ -13,8 +15,9 @@ TEST = test.exe
 
 TEST_SRCS = \
 ../src/Grid.cpp \
+../src/Simulation.cpp \
 ../src/File.cpp \
-../src/File_test.cpp
+../src/Simulation_test.cpp
 
 test: $(TEST)
 
@@ -23,3 +26,6 @@ $(TEST): $(TEST_SRCS)
 
 clean:
 	rm -f $(TARGET) $(TEST)
+
+clean_test:
+	rm -f $(TEST)
