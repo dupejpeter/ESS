@@ -85,53 +85,6 @@ using namespace std;
             	}
 
 
-            	//next four conditions deal with the four corner points.
-
-                else if(A.fixed[i][j]==0 && (i == 0) && (j == 0))
-            	{
-            	    dold = A.potential[i][j];
-            		A.potential[i][j] = 0.5*(A.potential[1][0]+((A.potential[0][0]-A.potential[1][0]))+A.potential[0][1]+((A.potential[0][0]-A.potential[0][1])));
-            		dnew = A.potential[i][j];
-            		if (derror < (abs (dnew-dold)))
-                    {
-                        derror = abs (dnew-dold);
-                    }
-            	}
-
-                else if(A.fixed[i][j]==0 && (i == A.nrows-1) && (j == 0))
-            	{
-            	    dold = A.potential[i][j];
-            		A.potential[i][j] = 0.5*(A.potential[A.nrows-2][j]+((A.potential[A.nrows-1][j]-A.potential[A.nrows-2][j]))+A.potential[A.nrows-1][j+1]+((A.potential[A.nrows-1][j]-A.potential[A.nrows-1][j+1])));
-            		dnew = A.potential[i][j];
-            		if (derror < (abs (dnew-dold)))
-                    {
-                        derror = abs (dnew-dold);
-                    }
-            	}
-
-                else if(A.fixed[i][j]==0 && (i == 0) && (j == A.ncolumns-1))
-            	{
-            	    dold = A.potential[i][j];
-            		A.potential[i][j] = 0.5*(A.potential[i][A.ncolumns-2]+((A.potential[i][A.ncolumns-1]-A.potential[i][A.ncolumns-2]))+A.potential[i+1][A.ncolumns-1]+((A.potential[i][A.ncolumns-1]-A.potential[i+1][A.ncolumns-1])));
-            		dnew = A.potential[i][j];
-            		if (derror < (abs (dnew-dold)))
-                    {
-                        derror = abs (dnew-dold);
-                    }
-            	}
-
-                else if(A.fixed[i][j]==0 && (i == A.nrows-1) && (j == A.ncolumns-1))
-            	{
-            	    dold = A.potential[i][j];
-            		A.potential[i][j] = 0.5*(A.potential[A.nrows-2][j]+((A.potential[A.nrows-1][j]-A.potential[A.nrows-2][j]))+A.potential[i][A.ncolumns-2]+((A.potential[i][A.ncolumns-1]-A.potential[i][A.ncolumns-2])));
-            		dnew = A.potential[i][j];
-            		if (derror < (abs (dnew-dold)))
-                    {
-                        derror = abs (dnew-dold);
-                    }
-            	}
-
-
             }
         }
         ++kkk;
