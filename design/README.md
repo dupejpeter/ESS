@@ -11,5 +11,5 @@ We split our problem into 5 main modules:
 - Control
 - Grid
 - Simulation
-- Import
-- Export of Results
+- File Import / Export
+- Analysis of Results
