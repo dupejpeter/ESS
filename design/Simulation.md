@@ -5,6 +5,7 @@ Simulation
 
 - Grid to simulate on
 - maximum iterations limit
+- iterations counter
 - Threshold change to stop the iteration
 - Timestamp of the simulation start
 - Timestamp of the simulation end
@@ -19,6 +20,6 @@ Simulation
 - get iterations limit
 - set threshold
 - get threshold
-- run() returns grid
+- run()
 - get grid
 - get simulation time
