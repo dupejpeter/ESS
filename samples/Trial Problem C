@@ -1,0 +1,202 @@
+#include <iostream>
+#include <math.h>
+#include <fstream>
+#include <string>
+#include <ctype.h>
+#include <vector>
+#include <unistd.h>
+#include <cmath>
+#include <iomanip>
+#include <stdlib.h>
+
+using namespace std;
+
+int main()
+{
+    // Variable initiation
+
+    int i, j, k, M, nTolerance;
+
+    double dOld, dNew, Potential[M][M], dPlate, dDistance, dLength, dDiff, dError;
+
+    // Create output stream for numerical data.
+
+    ofstream FDM_num("FDM_Num.dat");
+
+    // Get user input.
+
+    cout << "Please enter the boundary conditions." << endl;
+
+    cout << "Please enter the matrix size: ";
+    cin >> M;
+    cout << endl;
+
+    cout << "Please enter the distance between adjacent implants: ";
+    cin >> dDistance;
+    cout << endl;
+
+    cout << "Please enter the implant length: ";
+    cin >> dLength;
+    cout << endl;
+
+    cout << "Please enter the backplate potential: ";
+    cin >> dPlate;
+    cout << endl;
+
+    cout << "Please enter the tolerance: ";
+    cin >> nTolerance;
+    cout << endl;
+
+
+    /* Calculate secondary variables from input. Get width from implant length and
+        distance between implants. Get boundaries as multiples and sums of them.*/
+
+    double dWidth, a, b, c, d, e, f;
+
+    dWidth = 3*(dDistance + dLength);
+
+    dDiff = dWidth/M;
+
+    a = 1*dDistance/2 + 0*dLength;
+    b = 1*dDistance/2 + 1*dLength;
+    c = 3*dDistance/2 + 1*dLength;
+    d = 3*dDistance/2 + 2*dLength;
+    e = 5*dDistance/2 + 2*dLength;
+    f = 5*dDistance/2 + 3*dLength;
+
+
+
+    /*Initialize the matrix. The backplate (lower boundary) gets its value,
+      rest is initially set to zero.*/
+
+    for(j = 0; j < M; j++)
+    {
+        Potential[M-1][j] = dPlate;
+    }
+
+    for(i = 0; i < M-1; i++)
+        for(j = 0; j < M; j++)
+        {
+            Potential[i][j] = 0;
+        }
+
+    k = 0;
+
+    do
+    {
+        cout << k << endl;
+        dError = 0;
+
+
+        for (j = 1; j < M-1; j++)
+        {
+            if (((j*dDiff > a) && (j*dDiff < b)) || ((j*dDiff > c) && (j*dDiff < d)) ||
+                ((j*dDiff > e) && (j*dDiff < f)))
+
+                Potential[0][j] = 0;
+
+            else
+
+                dOld = Potential[0][j];
+                Potential[0][j] = 0.25*(2*Potential[1][j]+2*((Potential[1][j]-Potential[0][j]))+Potential[0][j+1]+Potential[0][j-1]);
+                dNew = Potential[0][j];
+                if (dError < (abs (dNew-dOld)))
+                {
+                    dError = abs (dNew-dOld);
+                }
+
+        }
+
+        for (i = 1; i < M-1; i++)
+            for (j = 0; j < M; j++)
+        {
+
+            if (j == 0)
+            {
+                dOld = Potential[i][0];
+                Potential[i][0] = 0.25*(2*Potential[i][1]+2*((Potential[i][1]-Potential[i][0]))+Potential[i+1][0]+Potential[i-1][0]);
+                dNew = Potential[i][0];
+                if (dError < (abs (dNew-dOld)))
+                {
+                    dError = abs (dNew-dOld);
+                }
+            }
+
+            else if (j == M-1)
+            {
+                dOld = Potential[i][M-1];
+                Potential[i][M-1] = 0.25*(2*Potential[i][M-1]+2*((Potential[i][M-2]-Potential[i][M-1]))+Potential[i+1][M-1]+Potential[i-1][M-1]);
+                dNew = Potential[i][M-1];
+                if (dError < abs (dNew-dOld))
+                {
+                    dError = abs (dNew-dOld);
+                }
+            }
+
+            else
+            {
+                dOld = Potential[i][j];
+                Potential[i][j] = 0.25*(Potential[i-1][j]+Potential[i+1][j]+Potential[i][j-1]+Potential[i][j+1]);
+                dNew = Potential[i][j];
+                if (dError < abs (dNew-dOld))
+                {
+                    dError = abs (dNew-dOld);
+                }
+
+            }
+
+        }
+
+        // Upper left and right corners.
+
+        dOld = Potential[0][0];
+        Potential[0][0] = 0.5*(Potential[0][1]+Potential[1][0]);
+        dNew = Potential[0][0];
+        if (dError < abs (dNew-dOld))
+        {
+            dError = abs (dNew-dOld);
+        }
+
+        dOld = Potential[0][M-1];
+        Potential[0][M-1] = 0.5*(Potential[0][M-2]+Potential[1][M-1]);
+        dNew = Potential[0][0];
+        if (dError < abs (dNew-dOld))
+        {
+            dError = abs (dNew-dOld);
+        }
+
+
+    k++;
+
+    }
+    while (dError > pow(10,-1*nTolerance));
+
+
+
+    cout << "CALCULATED MATRIX" << endl;
+    cout << fixed;
+    cout << setprecision(4);
+    for(i=0; i<M; i++)
+    {
+        for(j=0; j<M; j++)
+        {
+            if (FDM_num != NULL)
+            {
+            	FDM_num << fixed;
+            	FDM_num << setprecision(4);
+               	FDM_num << Potential[i][j] << "\t";
+            }
+           cout << Potential[i][j] << "\t";
+        }
+        FDM_num << endl;
+        cout << endl;
+    }
+
+
+    cout << "The error is " << dError << endl;
+
+    cout << "It took " << k << " iterations." << endl;
+
+
+return 0;
+}
