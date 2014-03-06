@@ -17,7 +17,7 @@ int main()
 
     int i, j, k, M, nTolerance;
 
-    double dOld, dNew, Potential[M][M], dPlate, dDistance, dLength, dDiff, dError;
+    double dOld, dNew, dPlate, dDistance, dLength, dDiff, dError;
 
     // Create output stream for numerical data.
 
@@ -30,6 +30,8 @@ int main()
     cout << "Please enter the matrix size: ";
     cin >> M;
     cout << endl;
+
+    double Potential[M][M];
 
     cout << "Please enter the distance between adjacent implants: ";
     cin >> dDistance;
@@ -57,12 +59,12 @@ int main()
 
     dDiff = dWidth/M;
 
-    a = 1*dDistance/2 + 0*dLength;
-    b = 1*dDistance/2 + 1*dLength;
-    c = 3*dDistance/2 + 1*dLength;
-    d = 3*dDistance/2 + 2*dLength;
-    e = 5*dDistance/2 + 2*dLength;
-    f = 5*dDistance/2 + 3*dLength;
+    a = 0.5*dDistance;
+    b = 0.5*dDistance + dLength;
+    c = 1.5*dDistance + dLength;
+    d = 1.5*dDistance + 2*dLength;
+    e = 2.5*dDistance + 2*dLength;
+    f = 2.5*dDistance + 3*dLength;
 
 
 
@@ -81,6 +83,7 @@ int main()
         }
 
     k = 0;
+    dError = 0;
 
     do
     {
@@ -90,13 +93,9 @@ int main()
 
         for (j = 1; j < M-1; j++)
         {
-            if (((j*dDiff > a) && (j*dDiff < b)) || ((j*dDiff > c) && (j*dDiff < d)) ||
-                ((j*dDiff > e) && (j*dDiff < f)))
-
-                Potential[0][j] = 0;
-
-            else
-
+            if ((j*dDiff < a) || ((j*dDiff < c) && (j*dDiff > b)) || ((j*dDiff > d) && (j*dDiff < e)) ||
+                (j*dDiff > f))
+            {
                 dOld = Potential[0][j];
                 Potential[0][j] = 0.25*(2*Potential[1][j]+2*((Potential[1][j]-Potential[0][j]))+Potential[0][j+1]+Potential[0][j-1]);
                 dNew = Potential[0][j];
@@ -104,6 +103,8 @@ int main()
                 {
                     dError = abs (dNew-dOld);
                 }
+            }
+
 
         }
 
@@ -159,7 +160,7 @@ int main()
 
         dOld = Potential[0][M-1];
         Potential[0][M-1] = 0.5*(Potential[0][M-2]+Potential[1][M-1]);
-        dNew = Potential[0][0];
+        dNew = Potential[0][M-1];
         if (dError < abs (dNew-dOld))
         {
             dError = abs (dNew-dOld);
@@ -169,7 +170,7 @@ int main()
     k++;
 
     }
-    while (dError > pow(10,-1*nTolerance));
+    while ((dError > pow(10,-1*nTolerance)) && (k < 10000));
 
 
 
