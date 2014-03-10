@@ -15,7 +15,9 @@ int main() {
 	Grid g = File::LoadDataFile("data_in.dat");
 
 	Simulation s = Simulation(&g);
-	s.Run();
+	s.SetMaxIteration(1000);
+	s.SetThreshold(0.000001);
+	s.Run(true);
 
 	File::SaveDataFile(g, "data_out.dat");
 	return 0;

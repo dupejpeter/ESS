@@ -15,8 +15,7 @@ class Simulation {
 	int m_nMaxIteration;
 	int m_nIterationCount;
 	float m_fThreshold;
-	float m_fTimeStart;
-	float m_fTimeEnd;
+	float m_fTime;
 
 public:
 	Simulation(Grid * g);
@@ -25,7 +24,7 @@ public:
 	int GetIterationCount();
 	void SetThreshold(float fThreshold);
 	float GetThreshold();
-	void Run();
+	void Run(bool bVerbose = false);
 	Grid * GetGrid();
 	float GetSimulationTime();
 };

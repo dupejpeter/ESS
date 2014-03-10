@@ -8,14 +8,15 @@
 #include "Simulation.h"
 #include "File.h"
 #include <iostream>
+#include <time.h>
+#include <cmath>
 
 Simulation::Simulation(Grid * g) {
 	m_grid = g;
-	m_nMaxIteration = 1000;
+	m_nMaxIteration = 100;
 	m_nIterationCount = 0;
-	m_fThreshold = 0.1;
-	m_fTimeStart = 0;
-	m_fTimeEnd = 0;
+	m_fThreshold = 0.00001;
+	m_fTime = 0;
 }
 
 void Simulation::SetMaxIteration(int nMaxIteration) {
@@ -38,10 +39,52 @@ float Simulation::GetThreshold() {
 	return m_fThreshold;
 }
 
-void Simulation::Run() {
-	//cout << m_grid->GetSizeX() << endl;
-	cout << "Simulation running" << endl;
-	m_grid->SetPot(1, 1, 1);
+void Simulation::Run(bool bVerbose) {
+	if (bVerbose) {
+		cout << "Simulation running";
+	}
+	float fError;
+	float fNewPot;
+
+	clock_t tStart = clock();
+	do {
+		m_nIterationCount++;
+		if (bVerbose) {
+			//if (m_nIterationCount % (m_nMaxIteration / 100) == 0) {
+			cout << ".";
+			//}
+		}
+		fError = 0;
+		for (int y = 0; y < m_grid->GetSizeY(); y++) {
+			for (int x = 0; x < m_grid->GetSizeX(); x++) {
+				if (!m_grid->IsFixed(x, y)) {
+					fNewPot = 0;
+					if (x == 0 || x == m_grid->GetSizeX() - 1) {
+						fNewPot += 2*m_grid->GetPot(x, y);
+					} else {
+						fNewPot += m_grid->GetPot(x - 1, y) + m_grid->GetPot(x + 1, y);
+					}
+					if (y == 0 || y == m_grid->GetSizeX() - 1) {
+						fNewPot += 2*m_grid->GetPot(x, y);
+					} else {
+						fNewPot += m_grid->GetPot(x, y - 1) + m_grid->GetPot(x, y + 1);
+					}
+					fNewPot /= 4;
+					if (fError < (abs(fNewPot - m_grid->GetPot(x, y))))
+					{
+						fError = abs(fNewPot - m_grid->GetPot(x, y));
+					}
+					m_grid->SetPot(x, y, fNewPot);
+				}
+			}
+		}
+	} while (fError > m_fThreshold && m_nIterationCount < m_nMaxIteration);
+	m_fTime = (float)(clock() - tStart)/CLOCKS_PER_SEC;
+
+	if (bVerbose) {
+		cout << endl;
+		cout << "Stopped after " << GetSimulationTime() << " ms and " << m_nIterationCount << " iterations." << endl;
+	}
 }
 
 Grid * Simulation::GetGrid() {
@@ -49,5 +92,5 @@ Grid * Simulation::GetGrid() {
 }
 
 float Simulation::GetSimulationTime() {
-	return m_fTimeEnd - m_fTimeStart;
+	return m_fTime;
 }
