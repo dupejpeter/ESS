@@ -56,7 +56,7 @@ void File::SaveDataFile(Grid & g, const char * strFileName) {
 		cerr << "File could not be opened for writing!" << endl;
 	} else {
 		outf << "# " << g.GetSizeX() << " " << g.GetSizeY() << endl;
-		outf << showpoint;
+		outf << fixed << showpoint;
 		for (int y = 0; y < g.GetSizeY(); y++) {
 			for (int x = 0; x < g.GetSizeX(); x++) {
 				outf << g.GetPot(x, y) << " ";
