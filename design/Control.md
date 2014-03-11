@@ -1,6 +1,45 @@
 Control
 ===
 
+So far the console menu is cancelled. Command line parametric control used instead.
+
+File Import:
+-f FILENAME
+
+Grid initialisation:
+-numA
+-anaA
+-numC
+-s --size = 10
+-X --sizeX = 10
+-Y --sizeY = 10
+-V = -5.0
++V = 5.0
+-GND = 0.0
+-r = 0.25
+-d = 1.0
+
+Simulation:
+-o --output OUTPUT_FILENAME = out.dat
+-p --precision = 0.001
+-m --maxIteration = 1000
+-v --verbose = false
+-ns --nosim = false
+
+Gnuplot Export flags:
+-pot
+-map
+-fl --fieldlines
+-epl --equipotlines
+-diff FILENAME
+-diffA
+-diffo DIFF_OUTPUT_FILENAME = diff.dat
+
+Example of comparing FILE1 with FILE2 without simulating FILE1: 
+ESS -f FILE1 -diff FILE2 -m 0
+
+
+
 User first has to Fill Grid with some initial boundary data. Therefore in the first menu `Fill Grid` there are 5 options:
 
 - AnalyticProbA
