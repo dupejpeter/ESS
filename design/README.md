@@ -9,7 +9,7 @@ Modules
 We split our problem into 5 main modules:
 
 - Control
+- File Import / Export
 - Grid
 - Simulation
-- File Import / Export
 - Analysis of Results
