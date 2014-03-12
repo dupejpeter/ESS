@@ -14,9 +14,9 @@ using namespace std;
 
 int main() {
 	try {
-		Grid g = File::LoadDataFile("in.dat");
+		Grid * g = File::LoadDataFile("in.dat");
 
-		Simulation s = Simulation(&g);
+		Simulation s = Simulation(g);
 		s.SetMaxIteration(1000);
 		s.SetThreshold(0.000001);
 		s.Run(true);
