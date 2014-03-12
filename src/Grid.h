@@ -19,7 +19,6 @@ private:
 
 public:
 	Grid(int nSizeX, int nSizeY);
-	Grid(int nSizeX, int nSizeY, float ** afPotential, bool ** abFixed);
 	~Grid();
 	int GetSizeX();
 	int GetSizeY();

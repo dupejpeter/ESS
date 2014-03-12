@@ -28,14 +28,6 @@ Grid::Grid(int nSizeX, int nSizeY) {
 	}
 }
 
-Grid::Grid(int nSizeX, int nSizeY, float ** afPotential, bool ** abFixed) {
-	CheckSize(nSizeX, nSizeY);
-	m_nSizeX = nSizeX;
-	m_nSizeY = nSizeY;
-	m_afPotential = afPotential;
-	m_abFixed = abFixed;
-}
-
 Grid::~Grid() {
 	for (int y = 0; y < m_nSizeY; y++) {
 		delete[] m_afPotential[y];
