@@ -31,12 +31,14 @@ Gnuplot Export flags:
 -map
 -fl --fieldlines
 -epl --equipotlines
+
+Num-Ana difference comparison
 -diff FILENAME
 -diffA
 -diffo DIFF_OUTPUT_FILENAME = diff.dat
 
 Example of comparing FILE1 with FILE2 without simulating FILE1: 
-ESS -f FILE1 -diff FILE2 -m 0
+ESS -f FILE1 -ns -diff FILE2
 
 
 
