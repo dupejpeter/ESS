@@ -4,7 +4,7 @@ Control
 So far the console menu is cancelled. Command line parametric control used instead.
 
 File Import:
--f FILENAME
+-f FILENAME = in.dat
 
 Grid initialisation:
 -numA
