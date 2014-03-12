@@ -14,7 +14,7 @@
 
 using namespace std;
 
-Grid File::LoadDataFile(const char * strFileName) {
+Grid * File::LoadDataFile(const char * strFileName) {
 	ifstream inf(strFileName);
 	string strInput;
 	int nSizeX, nSizeY;
@@ -30,45 +30,45 @@ Grid File::LoadDataFile(const char * strFileName) {
 	inf >> nSizeX;
 	inf >> nSizeY;
 
-	Grid g = Grid(nSizeX, nSizeY);
+	Grid * g = new Grid(nSizeX, nSizeY);
 
-	for (int y = 0; y < g.GetSizeY(); y++) {
-		for (int x = 0; x < g.GetSizeX(); x++){
+	for (int y = 0; y < g->GetSizeY(); y++) {
+		for (int x = 0; x < g->GetSizeX(); x++){
 			inf >> fInput;
-			g.SetPot(x, y, fInput);
+			g->SetPot(x, y, fInput);
 		}
 	}
 
-	for (int y = 0; y < g.GetSizeY(); y++) {
+	for (int y = 0; y < g->GetSizeY(); y++) {
 		inf >> strInput; // #
-		for (int x = 0; x < g.GetSizeX(); x++){
+		for (int x = 0; x < g->GetSizeX(); x++){
 			inf >> bInput;
-			g.SetFixed(x, y, bInput);
+			g->SetFixed(x, y, bInput);
 		}
 	}
 
 	return g;
 }
 
-void File::SaveDataFile(Grid & g, const char * strFileName) {
+void File::SaveDataFile(Grid * g, const char * strFileName) {
 	ofstream outf(strFileName);
 
 	if (!outf) {
 		throw runtime_error("Could not open file " + string(strFileName) + " for writing!");
 	} else {
-		outf << "# " << g.GetSizeX() << " " << g.GetSizeY() << endl;
+		outf << "# " << g->GetSizeX() << " " << g->GetSizeY() << endl;
 		outf << fixed << showpoint;
-		for (int y = 0; y < g.GetSizeY(); y++) {
-			for (int x = 0; x < g.GetSizeX(); x++) {
-				outf << g.GetPot(x, y) << " ";
+		for (int y = 0; y < g->GetSizeY(); y++) {
+			for (int x = 0; x < g->GetSizeX(); x++) {
+				outf << g->GetPot(x, y) << " ";
 			}
 			outf << endl;
 		}
 		outf << endl;
-		for (int y = 0; y < g.GetSizeY(); y++) {
+		for (int y = 0; y < g->GetSizeY(); y++) {
 			outf << "# ";
-			for (int x = 0; x < g.GetSizeX(); x++) {
-				outf << g.IsFixed(x, y) << " ";
+			for (int x = 0; x < g->GetSizeX(); x++) {
+				outf << g->IsFixed(x, y) << " ";
 			}
 			outf << endl;
 		}
