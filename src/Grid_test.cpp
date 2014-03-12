@@ -11,7 +11,7 @@
 
 using namespace std;
 
-int main() {
+void test1() {
 	try {
 		Grid g = Grid(1, 1);
 		cout << "g.getSizeX() = " << g.GetSizeX() << endl;
@@ -31,6 +31,10 @@ int main() {
 	} catch (exception &e) {
 		cerr << "Everything else we forgot: " << e.what() << endl;
 	}
+}
+
+int main() {
+	test1();
 
 	return 0;
 }
