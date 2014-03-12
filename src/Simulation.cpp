@@ -40,9 +40,7 @@ float Simulation::GetThreshold() {
 }
 
 void Simulation::Run(bool bVerbose) {
-	if (bVerbose) {
-		cout << "Simulation running";
-	}
+	cout << "Simulation running";
 	float fError;
 	float fNewPot;
 
@@ -81,10 +79,8 @@ void Simulation::Run(bool bVerbose) {
 	} while (fError > m_fThreshold && m_nIterationCount < m_nMaxIteration);
 	m_fTime = (float)(clock() - tStart)/CLOCKS_PER_SEC;
 
-	if (bVerbose) {
-		cout << endl;
-		cout << "Stopped after " << GetSimulationTime() << " ms and " << m_nIterationCount << " iterations." << endl;
-	}
+	cout << endl;
+	cout << "Stopped after " << GetSimulationTime() << " ms and " << m_nIterationCount << " iterations." << endl;
 }
 
 Grid * Simulation::GetGrid() {

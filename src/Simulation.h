@@ -24,7 +24,7 @@ public:
 	int GetIterationCount();
 	void SetThreshold(float fThreshold);
 	float GetThreshold();
-	void Run(bool bVerbose = false);
+	void Run(bool bVerbose);
 	Grid * GetGrid();
 	float GetSimulationTime();
 };
