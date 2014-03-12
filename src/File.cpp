@@ -10,6 +10,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
@@ -21,10 +22,10 @@ Grid File::LoadDataFile(const char * strFileName) {
 	bool bInput;
 
 	if (!inf) {
-		cerr << "File could not be opened for writing!" << endl;
+		throw runtime_error("Could not open file " + string(strFileName) + " !");
 	}
 
-	inf >> strInput;
+	inf >> strInput; // #
 
 	inf >> nSizeX;
 	inf >> nSizeY;
@@ -39,7 +40,7 @@ Grid File::LoadDataFile(const char * strFileName) {
 	}
 
 	for (int y = 0; y < g.GetSizeY(); y++) {
-		inf >> strInput;
+		inf >> strInput; // #
 		for (int x = 0; x < g.GetSizeX(); x++){
 			inf >> bInput;
 			g.SetFixed(x, y, bInput);
@@ -53,7 +54,7 @@ void File::SaveDataFile(Grid & g, const char * strFileName) {
 	ofstream outf(strFileName);
 
 	if (!outf) {
-		cerr << "File could not be opened for writing!" << endl;
+		throw runtime_error("Could not open file " + string(strFileName) + " for writing!");
 	} else {
 		outf << "# " << g.GetSizeX() << " " << g.GetSizeY() << endl;
 		outf << fixed << showpoint;

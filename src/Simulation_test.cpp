@@ -8,17 +8,22 @@
 #include "Simulation.h"
 #include "File.h"
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
 int main() {
-	Grid g = File::LoadDataFile("data_in.dat");
+	try {
+		Grid g = File::LoadDataFile("in.dat");
 
-	Simulation s = Simulation(&g);
-	s.SetMaxIteration(1000);
-	s.SetThreshold(0.000001);
-	s.Run(true);
+		Simulation s = Simulation(&g);
+		s.SetMaxIteration(1000);
+		s.SetThreshold(0.000001);
+		s.Run(true);
 
-	File::SaveDataFile(g, "data_out.dat");
+		File::SaveDataFile(g, "data_out.dat");
+	} catch (runtime_error &e) {
+		cerr << "File Error: " << e.what() << endl;
+	}
 	return 0;
 }

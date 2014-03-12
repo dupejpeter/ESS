@@ -13,7 +13,7 @@ using namespace std;
 void test_LoadDataFile() {
 	Grid g = File::LoadDataFile("data.dat");
 	File::SaveDataFile(g, "data_copy.dat");
-	//cout << g.GetPot(0,0) << endl;
+	cout << g.GetPot(0,0) << endl;
 }
 
 void test_SaveDataFile() {
