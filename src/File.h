@@ -18,6 +18,7 @@ public:
 	static Grid * LoadDataFile(const char * strFileName);
 	static void SaveDataFile(Grid * g, const char * strFileName);
 	static void SaveDataFile(Grid * g, const char * strFileName, float fTime, int nIterationCount);
+	static void SaveDiffFile(Grid * diff, const char * strFileName);
 };
 
 #endif /* FILE_H */

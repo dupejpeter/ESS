@@ -97,3 +97,23 @@ void File::SaveDataFile(Grid * g, const char * strFileName, float fTime, int nIt
 
 	outf.close();
 }
+
+void File::SaveDiffFile(Grid * diff, const char * strFileName) {
+	ofstream outf(strFileName);
+
+	if (!outf) {
+		throw runtime_error("Could not open file " + string(strFileName) + " for writing!");
+	} else {
+		outf << "# " << diff->GetSizeX() << " " << diff->GetSizeY() << endl;
+		outf << fixed << showpoint;
+		for (int y = 0; y < diff->GetSizeY(); y++) {
+			for (int x = 0; x < diff->GetSizeX(); x++) {
+				outf << diff->GetPot(x, y) << " ";
+			}
+			outf << endl;
+		}
+		outf << endl;
+	}
+
+	outf.close();
+}
