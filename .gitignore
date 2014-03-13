@@ -3,11 +3,6 @@
 .project
 *.prefs
 
-# dat and exe files for Cameron
-*.dat
-*.exe
-potential
-
 samples/Cam_graphs/2DplotFINAL.plt
 
 samples/Cam_graphs/FDM_output.plt
