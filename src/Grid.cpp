@@ -82,3 +82,36 @@ void Grid::SetFixed(int nX, int nY, bool bFixed) {
 	CheckBounds(nX, nY);
 	m_abFixed[nY][nX] = bFixed;
 }
+
+Grid * Grid::Diff(Grid * g2) {
+	if (m_nSizeX != g2->GetSizeX() || m_nSizeY != g2->GetSizeY())
+		throw invalid_argument("Grid sizes do not match!");
+
+	Grid * diff = new Grid(m_nSizeX, m_nSizeY);
+
+	for (int y = 0; y < m_nSizeY; y++) {
+		for (int x = 0; x < m_nSizeX; x++) {
+			diff->SetPot(x, y, (GetPot(x, y) / g2->GetPot(x, y) - 1));
+		}
+	}
+
+	return diff;
+}
+
+Grid * Grid::CreateAnalyticProbA(int nSizeX, int nSizeY, float fVp, float fVn, float fGND, float fR, float fD) {
+	Grid * g = new Grid(nSizeX, nSizeY);
+
+	return g;
+}
+
+Grid * Grid::CreateNumericProbA(int nSizeX, int nSizeY, float fVp, float fVn, float fGND, float fR) {
+	Grid * g = new Grid(nSizeX, nSizeY);
+
+	return g;
+}
+
+Grid * Grid::CreateNumericProbC(int nSizeX, int nSizeY, float fVp, float fVn, float fGND) {
+	Grid * g = new Grid(nSizeX, nSizeY);
+
+	return g;
+}

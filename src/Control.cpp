@@ -7,7 +7,6 @@
 //============================================================================
 
 #include "File.h"
-#include "Grid.h"
 #include "Simulation.h"
 #include <string>
 #include <iostream>
@@ -20,10 +19,12 @@ using namespace std;
 #define NUM_A 2
 #define ANA_A 3
 #define NUM_C 4
-#define DIFF 1
+#define DIFF_F 1
 #define DIFF_A 2
 
 Grid * g;
+Grid * g2;
+Grid * diff;
 Simulation * sim;
 char * strFileName = "in.dat";
 int nGrid = 0;
@@ -113,7 +114,7 @@ int main(int argc, char *argv[]) {
 		} else if (string(argv[nArg]) == "-diff") {
 			nArg++;
 			strDiffFileName = argv[nArg];
-			nDiff = DIFF;
+			nDiff = DIFF_F;
 		} else if (string(argv[nArg]) == "-diffA") {
 			nDiff = DIFF_A;
 		} else if (string(argv[nArg]) == "-diffo") {
@@ -149,7 +150,8 @@ int main(int argc, char *argv[]) {
 		break;
 	default:
 		cerr << "No input specified!" << endl;
-		cerr << "Please use option -f FILENAME to import data from file or specify a problem by -numA, -numC." << endl;
+		cerr << "Please use option -f FILENAME to import data from file." << endl;
+		cerr << "Use --help to see more options." << endl;
 		return 0;
 	}
 
@@ -158,9 +160,10 @@ int main(int argc, char *argv[]) {
 		sim->SetMaxIteration(nMaxIteration);
 		sim->SetThreshold(fPrecission);
 		sim->Run(bVerbose);
+		File::SaveDataFile(g, strOFileName, sim->GetSimulationTime(), sim->GetIterationCount());
+	} else {
+		File::SaveDataFile(g, strOFileName);
 	}
-
-	File::SaveDataFile(g, strOFileName);
 
 	// TODO gnuploting
 	if (bPot) {
@@ -176,7 +179,24 @@ int main(int argc, char *argv[]) {
 
 	}
 
-	// TODO diff
+	switch (nDiff) {
+	case DIFF_F:
+		try {
+			g2 = File::LoadDataFile(strDiffFileName);
+		} catch (runtime_error &e) {
+			cerr << "File Error: " << e.what() << endl;
+			return 0;
+		}
+		break;
+	case DIFF_A:
+		g2 = Grid::CreateAnalyticProbA(nSizeX, nSizeY, fVp, fVn, fGND, fR, fD);
+		break;
+	}
+	if (nDiff) {
+		diff = g->Diff(g2);
+		File::SaveDiffFile(diff, strDiffOFileName);
+		//
+	}
 
 	return 0;
 }

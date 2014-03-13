@@ -26,6 +26,10 @@ public:
 	void SetPot(int nX, int nY, float fPot);
 	bool IsFixed(int nX, int nY);
 	void SetFixed(int nX, int nY, bool bFixed);
+	Grid * Diff(Grid * g2);
+	static Grid * CreateAnalyticProbA(int nSizeX, int nSizeY, float fVp, float fVn, float fGND, float fR, float fD);
+	static Grid * CreateNumericProbA(int nSizeX, int nSizeY, float fVp, float fVn, float fGND, float fR);
+	static Grid * CreateNumericProbC(int nSizeX, int nSizeY, float fVp, float fVn, float fGND);
 };
 
 #endif /* Grid_H */
