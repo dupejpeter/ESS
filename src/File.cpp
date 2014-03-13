@@ -76,3 +76,24 @@ void File::SaveDataFile(Grid * g, const char * strFileName) {
 
 	outf.close();
 }
+
+void File::SaveDataFile(Grid * g, const char * strFileName, float fTime, int nIterationCount) {
+	ofstream outf(strFileName);
+
+	if (!outf) {
+		throw runtime_error("Could not open file " + string(strFileName) + " for writing!");
+	} else {
+		outf << "# " << g->GetSizeX() << " " << g->GetSizeY() << endl;
+		outf << fixed << showpoint;
+		for (int y = 0; y < g->GetSizeY(); y++) {
+			for (int x = 0; x < g->GetSizeX(); x++) {
+				outf << g->GetPot(x, y) << " ";
+			}
+			outf << endl;
+		}
+		outf << endl;
+		outf << "# Calculated in " << fTime << " ms and " << nIterationCount << " iterations." << endl;
+	}
+
+	outf.close();
+}

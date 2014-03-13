@@ -17,6 +17,7 @@ class File {
 public:
 	static Grid * LoadDataFile(const char * strFileName);
 	static void SaveDataFile(Grid * g, const char * strFileName);
+	static void SaveDataFile(Grid * g, const char * strFileName, float fTime, int nIterationCount);
 };
 
 #endif /* FILE_H */
