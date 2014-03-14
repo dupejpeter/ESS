@@ -30,11 +30,9 @@ char * strFileName = "in.dat";
 int nGrid = 0;
 int nSizeX = 10;
 int nSizeY = 10;
-float fVp = 5.0;
-float fVn = -5.0;
+float fV = 5.0;
 float fGND = 0.0;
 float fR = 0.2;
-float fD = 1.0;
 char * strOFileName = "out.dat";
 float fPrecission = 0.001;
 int nMaxIteration = 1000;
@@ -77,23 +75,13 @@ int main(int argc, char *argv[]) {
 			nSizeY = atoi(argv[nArg]);
 		} else if (string(argv[nArg]) == "-V") {
 			nArg++;
-			fVp = atof(argv[nArg]);
-			fVn = fVp;
-		} else if (string(argv[nArg]) == "-Vp") {
-			nArg++;
-			fVp = atof(argv[nArg]);
-		} else if (string(argv[nArg]) == "-Vn") {
-			nArg++;
-			fVn = atof(argv[nArg]);
+			fV = atof(argv[nArg]);
 		} else if (string(argv[nArg]) == "-GND") {
 			nArg++;
 			fGND = atof(argv[nArg]);
 		} else if (string(argv[nArg]) == "-r") {
 			nArg++;
 			fR = atof(argv[nArg]);
-		} else if (string(argv[nArg]) == "-d") {
-			nArg++;
-			fD = atof(argv[nArg]);
 		} else if (string(argv[nArg]) == "-o" || string(argv[nArg]) == "--output") {
 			nArg++;
 			strOFileName = argv[nArg];
@@ -121,7 +109,7 @@ int main(int argc, char *argv[]) {
 			nDiff = DIFF_F;
 		} else if (string(argv[nArg]) == "-diffA") {
 			nDiff = DIFF_A;
-		} else if (string(argv[nArg]) == "-diffo") {
+		} else if (string(argv[nArg]) == "-diffo" || string(argv[nArg]) == "-odiff") {
 			nArg++;
 			strDiffOFileName = argv[nArg];
 		} else if (string(argv[nArg]) == "-h" || string(argv[nArg]) == "--help") {
@@ -144,13 +132,13 @@ int main(int argc, char *argv[]) {
 		}
 		break;
 	case NUM_A:
-		g = Grid::CreateNumericA(nSizeX, nSizeY, fVp, fVn, fGND, fR);
+		g = Grid::CreateNumericA(nSizeX, nSizeY, fV, fGND, fR);
 		break;
 	case ANA_A:
-		g = Grid::CreateAnalyticA(nSizeX, nSizeY, fVp, fVn, fGND, fR, fD);
+		g = Grid::CreateAnalyticA(nSizeX, nSizeY, fV, fGND, fR);
 		break;
 	case NUM_C:
-		g = Grid::CreateNumericC(nSizeX, nSizeY, fVp, fGND);
+		g = Grid::CreateNumericC(nSizeX, nSizeY, fV, fGND);
 		break;
 	default:
 		cerr << "No input specified!" << endl;
@@ -193,7 +181,7 @@ int main(int argc, char *argv[]) {
 		}
 		break;
 	case DIFF_A:
-		g2 = Grid::CreateAnalyticA(nSizeX, nSizeY, fVp, fVn, fGND, fR, fD);
+		g2 = Grid::CreateAnalyticA(nSizeX, nSizeY, fV, fGND, fR);
 		break;
 	}
 	if (nDiff) {

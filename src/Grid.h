@@ -27,8 +27,8 @@ public:
 	bool IsFixed(int nX, int nY);
 	void SetFixed(int nX, int nY, bool bFixed);
 	Grid * Diff(Grid * g2);
-	static Grid * CreateAnalyticA(int nSizeX, int nSizeY, float fVp, float fVn, float fGND, float fR, float fD);
-	static Grid * CreateNumericA(int nSizeX, int nSizeY, float fVp, float fVn, float fGND, float fR);
+	static Grid * CreateAnalyticA(int nSizeX, int nSizeY, float fV, float fGND, float fR);
+	static Grid * CreateNumericA(int nSizeX, int nSizeY, float fV, float fGND, float fR);
 	static Grid * CreateNumericC(int nSizeX, int nSizeY, float fV, float fGND);
 };
 

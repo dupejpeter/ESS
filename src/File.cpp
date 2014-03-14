@@ -112,7 +112,6 @@ void File::SaveDiffFile(Grid * diff, const char * strFileName) {
 			}
 			outf << endl;
 		}
-		outf << endl;
 	}
 
 	outf.close();

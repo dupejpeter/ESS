@@ -92,29 +92,52 @@ Grid * Grid::Diff(Grid * g2) {
 
 	for (int y = 0; y < m_nSizeY; y++) {
 		for (int x = 0; x < m_nSizeX; x++) {
-			diff->SetPot(x, y, (GetPot(x, y) / g2->GetPot(x, y) - 1));
+			if (g2->GetPot(x, y) != 0) {
+				diff->SetPot(x, y, (GetPot(x, y) / g2->GetPot(x, y) - 1));
+			} else {
+				diff->SetPot(x, y, 0);
+			}
 		}
 	}
 
 	return diff;
 }
 
-Grid * Grid::CreateAnalyticA(int nSizeX, int nSizeY, float fVp, float fVn, float fGND, float fR, float fD) {
-	Grid * g = new Grid(nSizeX, nSizeY);
-	// TODO
-	return g;
-}
-
-Grid * Grid::CreateNumericA(int nSizeX, int nSizeY, float fVp, float fVn, float fGND, float fR) {
+Grid * Grid::CreateAnalyticA(int nSizeX, int nSizeY, float fV, float fGND, float fR) {
 	Grid * g = new Grid(nSizeX, nSizeY);
 
 	for (int y = 0; y < nSizeY; y++) {
 		for (int x = 0; x < nSizeX; x++) {
 			if (x == 0) {
-				g->SetPot(x, y, fVp);
+				g->SetPot(x, y, fGND + fV);
 				g->SetFixed(x, y, 1);
 			} else if (x == nSizeX - 1) {
-				g->SetPot(x, y, fVn);
+				g->SetPot(x, y, fGND -fV);
+				g->SetFixed(x, y, 1);
+			} else if ((x - (nSizeX - 1)/2.0)*(x - (nSizeX - 1)/2.0) + (y - (nSizeY - 1)/2.0)*(y - (nSizeY - 1)/2.0) < fR*fR*nSizeX*nSizeX) {
+				g->SetPot(x, y, fGND);
+				g->SetFixed(x, y, 1);
+			} else {
+				float fPot = fGND + (2*fV) / nSizeX * (fR*fR*nSizeX*nSizeX/((x - (nSizeX - 1)/2.0)*(x - (nSizeX - 1)/2.0) + (y - (nSizeY - 1)/2.0)*(y - (nSizeY - 1)/2.0)) - (x - (nSizeX - 1)/2.0));
+				g->SetPot(x, y, fPot);
+				g->SetFixed(x, y, 1);
+			}
+		}
+	}
+
+	return g;
+}
+
+Grid * Grid::CreateNumericA(int nSizeX, int nSizeY, float fV, float fGND, float fR) {
+	Grid * g = new Grid(nSizeX, nSizeY);
+
+	for (int y = 0; y < nSizeY; y++) {
+		for (int x = 0; x < nSizeX; x++) {
+			if (x == 0) {
+				g->SetPot(x, y, fGND + fV);
+				g->SetFixed(x, y, 1);
+			} else if (x == nSizeX - 1) {
+				g->SetPot(x, y, fGND - fV);
 				g->SetFixed(x, y, 1);
 			} else if ((x - (nSizeX - 1)/2.0)*(x - (nSizeX - 1)/2.0) + (y - (nSizeY - 1)/2.0)*(y - (nSizeY - 1)/2.0) < fR*fR*nSizeX*nSizeX) {
 				g->SetPot(x, y, fGND);
