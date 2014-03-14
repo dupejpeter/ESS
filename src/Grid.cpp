@@ -7,6 +7,7 @@
 
 #include "Grid.h"
 #include <stdexcept>	//	invalid_argument, out_of_range
+#include <math.h>
 
 using namespace std;
 
@@ -98,20 +99,65 @@ Grid * Grid::Diff(Grid * g2) {
 	return diff;
 }
 
-Grid * Grid::CreateAnalyticProbA(int nSizeX, int nSizeY, float fVp, float fVn, float fGND, float fR, float fD) {
+Grid * Grid::CreateAnalyticA(int nSizeX, int nSizeY, float fVp, float fVn, float fGND, float fR, float fD) {
 	Grid * g = new Grid(nSizeX, nSizeY);
+	// TODO
+	return g;
+}
+
+Grid * Grid::CreateNumericA(int nSizeX, int nSizeY, float fVp, float fVn, float fGND, float fR) {
+	Grid * g = new Grid(nSizeX, nSizeY);
+
+	for (int y = 0; y < nSizeY; y++) {
+		for (int x = 0; x < nSizeX; x++) {
+			if (x == 0) {
+				g->SetPot(x, y, fVp);
+				g->SetFixed(x, y, 1);
+			} else if (x == nSizeX - 1) {
+				g->SetPot(x, y, fVn);
+				g->SetFixed(x, y, 1);
+			} else if ((x - (nSizeX - 1)/2.0)*(x - (nSizeX - 1)/2.0) + (y - (nSizeY - 1)/2.0)*(y - (nSizeY - 1)/2.0) < fR*fR*nSizeX*nSizeX) {
+				g->SetPot(x, y, fGND);
+				g->SetFixed(x, y, 1);
+			} else {
+				g->SetPot(x, y, 0.0);
+				g->SetFixed(x, y, 0);
+			}
+		}
+	}
 
 	return g;
 }
 
-Grid * Grid::CreateNumericProbA(int nSizeX, int nSizeY, float fVp, float fVn, float fGND, float fR) {
+Grid * Grid::CreateNumericC(int nSizeX, int nSizeY, float fV, float fGND) {
 	Grid * g = new Grid(nSizeX, nSizeY);
 
-	return g;
-}
+	float fHeight = 0.04;
+	float fWidth = 0.17;
+	int nCount = 3;
 
-Grid * Grid::CreateNumericProbC(int nSizeX, int nSizeY, float fVp, float fVn, float fGND) {
-	Grid * g = new Grid(nSizeX, nSizeY);
+	//Magic in Slovak language follows :D :D
+	//I'm not kidding ... I have no idea how it works ...
+	//It works and when I tried to change anything it stopped :D
+	int blok = nSizeX/nCount;
+	int sirka = fWidth*nSizeX;
+	int posun = ceil((blok - sirka)/2.0) - blok;
+	//(x - posun) % blok < sirka
+
+	for (int y = 0; y < nSizeY; y++) {
+		for (int x = 0; x < nSizeX; x++) {
+			if (y == nSizeY - 1) {
+				g->SetPot(x, y, fV);
+				g->SetFixed(x, y, 1);
+			} else if ((y == 0 || y < fHeight*nSizeY) && ((x - posun) % blok < sirka)) {
+				g->SetPot(x, y, fGND);
+				g->SetFixed(x, y, 1);
+			} else {
+				g->SetPot(x, y, 0.0);
+				g->SetFixed(x, y, 0);
+			}
+		}
+	}
 
 	return g;
 }

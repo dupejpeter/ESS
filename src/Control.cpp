@@ -33,7 +33,7 @@ int nSizeY = 10;
 float fVp = 5.0;
 float fVn = -5.0;
 float fGND = 0.0;
-float fR = 0.25;
+float fR = 0.2;
 float fD = 1.0;
 char * strOFileName = "out.dat";
 float fPrecission = 0.001;
@@ -75,10 +75,14 @@ int main(int argc, char *argv[]) {
 		} else if (string(argv[nArg]) == "-Y" || string(argv[nArg]) == "--sizeY") {
 			nArg++;
 			nSizeY = atoi(argv[nArg]);
-		} else if (string(argv[nArg]) == "+V") {
+		} else if (string(argv[nArg]) == "-V") {
 			nArg++;
 			fVp = atof(argv[nArg]);
-		} else if (string(argv[nArg]) == "-V") {
+			fVn = fVp;
+		} else if (string(argv[nArg]) == "-Vp") {
+			nArg++;
+			fVp = atof(argv[nArg]);
+		} else if (string(argv[nArg]) == "-Vn") {
 			nArg++;
 			fVn = atof(argv[nArg]);
 		} else if (string(argv[nArg]) == "-GND") {
@@ -140,13 +144,13 @@ int main(int argc, char *argv[]) {
 		}
 		break;
 	case NUM_A:
-		g = Grid::CreateNumericProbA(nSizeX, nSizeY, fVp, fVn, fGND, fR);
+		g = Grid::CreateNumericA(nSizeX, nSizeY, fVp, fVn, fGND, fR);
 		break;
 	case ANA_A:
-		g = Grid::CreateAnalyticProbA(nSizeX, nSizeY, fVp, fVn, fGND, fR, fD);
+		g = Grid::CreateAnalyticA(nSizeX, nSizeY, fVp, fVn, fGND, fR, fD);
 		break;
 	case NUM_C:
-		g = Grid::CreateNumericProbC(nSizeX, nSizeY, fVp, fVn, fGND);
+		g = Grid::CreateNumericC(nSizeX, nSizeY, fVp, fGND);
 		break;
 	default:
 		cerr << "No input specified!" << endl;
@@ -189,7 +193,7 @@ int main(int argc, char *argv[]) {
 		}
 		break;
 	case DIFF_A:
-		g2 = Grid::CreateAnalyticProbA(nSizeX, nSizeY, fVp, fVn, fGND, fR, fD);
+		g2 = Grid::CreateAnalyticA(nSizeX, nSizeY, fVp, fVn, fGND, fR, fD);
 		break;
 	}
 	if (nDiff) {
