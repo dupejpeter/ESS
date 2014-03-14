@@ -2,7 +2,7 @@ Electrostatic Simulator
 ===
 
 A software package to find numerical solutions of potential in electrostatic problems.
-Project of P2 Group 1.
+Project of P3 Group 1.
 
 Repository structure
 ---
