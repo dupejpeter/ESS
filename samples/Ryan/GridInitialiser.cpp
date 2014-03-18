@@ -198,10 +198,22 @@ using namespace std;
                 Ex[i][ncolumns-1] = 2 * Ex[i][ncolumns-2] - Ex[i][ncolumns-3];
             }
 
+        for (int i = 1; i < nrows-1; i++)
+            {
+                Ey[i][0] = -((potential[i+1][0]-potential[i-1][0])/(2*h));
+                Ey[i][ncolumns-1] = -((potential[i+1][ncolumns-1]-potential[i-1][ncolumns-1])/(2*h));
+            }
+
         for (int j =0; j < ncolumns; j++)
             {
                 Ey[0][j] = 2 * Ey[1][j] - Ey[2][j];
                 Ey[nrows-1][j] = 2 * Ey[nrows-2][j] - Ey[nrows-3][j];
+            }
+
+        for (int j =1; j < ncolumns-1; j++)
+            {
+                Ex[0][j] = -((potential[0][j+1]-potential[0][j-1])/(2*h));
+                Ex[nrows-1][j] = -((potential[nrows-1][j+1]-potential[nrows-1][j-1])/(2*h));
             }
     }
 
