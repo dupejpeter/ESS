@@ -92,11 +92,7 @@ Grid * Grid::Diff(Grid * g2) {
 
 	for (int y = 0; y < m_nSizeY; y++) {
 		for (int x = 0; x < m_nSizeX; x++) {
-			if (g2->GetPot(x, y) != 0) {
-				diff->SetPot(x, y, (GetPot(x, y) / g2->GetPot(x, y) - 1));
-			} else {
-				diff->SetPot(x, y, 0);
-			}
+			diff->SetPot(x, y, (GetPot(x, y) - g2->GetPot(x, y)));
 		}
 	}
 
