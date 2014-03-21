@@ -151,8 +151,8 @@ Grid * Grid::CreateNumericA(int nSizeX, int nSizeY, float fV, float fGND, float 
 Grid * Grid::CreateNumericC(int nSizeX, int nSizeY, float fV, float fGND) {
 	Grid * g = new Grid(nSizeX, nSizeY);
 
-	float fHeight = 0.04;
-	float fWidth = 0.17;
+	float fHeight = 0.2;
+	float fWidth = 0.2;
 	int nCount = 3;
 
 	//Magic in Slovak language follows :D :D
