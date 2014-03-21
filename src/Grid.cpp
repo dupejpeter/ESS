@@ -8,6 +8,7 @@
 #include "Grid.h"
 #include <stdexcept>	//	invalid_argument, out_of_range
 #include <math.h>
+#include <iostream>
 
 using namespace std;
 
@@ -114,7 +115,7 @@ Grid * Grid::CreateAnalyticA(int nSizeX, int nSizeY, float fV, float fGND, float
 				g->SetPot(x, y, fGND);
 				g->SetFixed(x, y, 1);
 			} else {
-				float fPot = fGND + (2*fV) / nSizeX * (fR*fR*nSizeX*nSizeX/((x - (nSizeX - 1)/2.0)*(x - (nSizeX - 1)/2.0) + (y - (nSizeY - 1)/2.0)*(y - (nSizeY - 1)/2.0)) - (x - (nSizeX - 1)/2.0));
+				float fPot = fGND + (2*fV) / (nSizeX - 1) * (fR*fR*nSizeX*nSizeX/((x - (nSizeX - 1)/2.0)*(x - (nSizeX - 1)/2.0) + (y - (nSizeY - 1)/2.0)*(y - (nSizeY - 1)/2.0)) - 1)*(x - (nSizeX - 1)/2.0);
 				g->SetPot(x, y, fPot);
 				g->SetFixed(x, y, 1);
 			}
